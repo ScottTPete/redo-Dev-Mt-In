@@ -33,12 +33,13 @@ angular.module('devMtIn')
 		
 		function getNextFriend() {
 			if(profile.friends[index]) {
+				console.log(profile.friends[index])
 				$http({
 					method: 'GET',
 					url: baseUrl + 'api/friends-friends/' + profile.friends[index]._id
 				}).then(function(friends) {
-					console.log(friends);
-					profile.friends[index].firends = friends.data;
+					console.log(friends/*.friends*/);
+					profile.friends[index].friends = friends.data;
 					index++
 					getNextFriend();
 				}).catch(function(err){

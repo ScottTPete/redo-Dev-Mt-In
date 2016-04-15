@@ -76,13 +76,13 @@ angular.module('devMtIn')
 		})
 	};
 	
+	$scope.custom = true;
+	
 	$scope.findFriends = function(query) {
 		
 		if($scope.custom === true) {
 			$scope.custom = false;
-		} else {
-			$scope.custom = true;
-		}
+		} 
 		
 		friendSvc.findFriends($scope.myProfile._id, query).then(function(response) {
 //			console.log(response);
@@ -90,7 +90,7 @@ angular.module('devMtIn')
 		})
 	};
 	
-	$scope.custom = true;
+	
 	
 	$scope.addFriend = function(friendId) {
 		friendSvc.addFriend($scope.myProfile._id, friendId).then(function(response) {
