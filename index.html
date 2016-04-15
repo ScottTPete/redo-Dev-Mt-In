@@ -11,26 +11,27 @@
 
 <body ng-controller="homeCtrl">
 	<div class="l-header">
+		<!-- || says that if there's no value at profile.name display this-->
 		<h1>{{myProfile.name || 'Your Name'}}</h1>
 	</div>
   
   <div class="wrapper">  
     <div>
       <h2>Profile</h2>
-      <button class="l-btn l-btn-main">Editing :</button>
+      <button class="l-btn l-btn-main" ng-click='toggleEdit()'>{{editStatus}}</button>
     </div>
 
     <div>      
 
-      <input id="name" type="text" placeholder="Your Name" ng-model="myProfile.name">
+      <input id="name" type="text" placeholder="Your Name" ng-model="myProfile.name" ng-disabled="disableEdit">
       <br />
 
-      <input id="likes" type="text" placeholder="Likes">
+		<input id="likes" type="text" placeholder="Likes" ng-disabled="disableEdit" ng-model="myProfile.likes">
       <br />
 
-      <input id="favColor" type="text" placeholder="Favorite Color">
+		<input id="favColor" type="text" placeholder="Favorite Color" ng-disabled="disableEdit" ng-model="myProfile.favColor">
       <br />
-      <button class="l-btn l-btn-success">Save</button>
+      <button class="l-btn l-btn-success" ng-click="saveProfile(myProfile)">Save</button>
       <button class="l-btn l-btn-danger">Delete</button>
     </div>
   </div>
