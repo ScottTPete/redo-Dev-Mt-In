@@ -19,7 +19,7 @@ angular.module('devMtIn')
 			url: baseUrl + 'api/profiles/', //url we're making the request to.
 			data: profile //The data we are requesting be posted
 		}).then(function(response) {
-			console.log(response);
+//			console.log(response);
 			localStorage.setItem('profileId', JSON.stringify({profileId: response.data._id })) 
 			//creates on object on localstorage with a key of profileId and sets the value as and {profileId: id}
 		})
@@ -45,7 +45,7 @@ angular.module('devMtIn')
 		
 		return $http({
 			method: 'DELETE', 
-			url: baseUrl + 'api/profile/' + profileId //hits 
+			url: baseUrl + 'api/profiles/' + profileId //hits the profile id associated with user on local host and delets the profile
 		})
 	}
 	
