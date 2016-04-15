@@ -1,34 +1,52 @@
 angular.module('devMtIn')
-	.service('profileSvc', function() {
+	.service('profileSvc', function($http) {
 	
-	
+	//$http allows to make requests for any CRUD operation (Create, Read, Update, Delete)  
 	
 	this.serviceTest = function() {
-		console.log('profile service is working yo')
+		console.log('profile service is working yo');
+		
 	}
 	
 	
-	//gets profile from the controller and saves it locally. Stingify does what you think
+	var baseUrl = 'http://connections.devmounta.in/';
+	
+	
+	//gets profile from the controller and saves it to a database
 	this.saveProfile = function(profile) {
-		localStorage.setItem('profile', JSON.stringify(profile));
-		console.log(localStorage.profile);
+		return $http ({
+			method: 'POST', //Request method
+			url: baseUrl + 'api/profiles/', //url we're making the request to.
+			data: profile //The data we are requesting be posted
+		}).then(function(response) {
+			console.log(response);
+			localStorage.setItem('profileId', JSON.stringify({profileId: response.data._id })) 
+			//creates on object on localstorage with a key of profileId and sets the value as and {profileId: id}
+		})
+		.catch(function(err) {
+			console.log(err);
+		})
 
 	};
 	
-	this.getProfile = function() {
-		if(localStorage.getItem('profile')) {
-			return JSON.parse(localStorage.getItem('profile'));
-		} return {
-			friends: [{name: 'Ryan'}, {name: 'Bryan'}, {name: 'Sarah'}, {name: 'Zac'}, {name: 'Erin'}]
-		}
+	
+	//gets profile from database
+	this.getProfile = function(profileId) {
+		return $http ({
+			method: 'GET',
+			url: baseUrl + 'api/profiles/' + profileId
+		})
 	};
 	
+	
+	
 	this.deleteProfile = function() {
-		if(localStorage.getItem('profile')) {
-			localStorage.removeItem('profile');
-		} else {
-			console.log('No profile to delete');
-		}
+		var profileId = JSON.parse(localStorage.getItem('profileId')).profileId; //gets the profile id from local storage 
+		
+		return $http({
+			method: 'DELETE', 
+			url: baseUrl + 'api/profile/' + profileId //hits 
+		})
 	}
 	
 	

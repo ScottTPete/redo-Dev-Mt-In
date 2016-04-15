@@ -3,8 +3,28 @@ angular.module('devMtIn')
 		
 	
 	//ng-model="myProfile" is data binding from controller to view
-	$scope.myProfile = profileSvc.getProfile();
+	//checks for profileId if it exists call svc function to get profile and puts it on scope
+	$scope.getProfile = function() {
+		var profileId = JSON.parse(localStorage.getItem('profileId'));
+		console.log(profileId);
+		
+		if(profileId) {
+			profileSvc.getProfile(profileId.profileId).then(function(profile) {
+				$scope.myProfile = profile.data;
+				console.log($scope.myProfile);
+			})
+			.catch(function(err) {
+				console.log(err);
+			})
+		}
+	}
 	
+	//Must be invoked to actually do anything.
+	$scope.getProfile();
+	
+	
+	
+	//sets sort options for friends list, used by ng-options
 	$scope.sortOptions = [
 		{
 			display: 'Ascending',
@@ -16,8 +36,12 @@ angular.module('devMtIn')
 		}
 	]
 	
+	
+	//set to ng-disabled which disables it's element
 	$scope.disableEdit = true;
 	
+	
+	//sets edit button text
 	$scope.editStatus = "Click to edit!"
 	
 	$scope.toggleEdit = function() {
@@ -37,9 +61,16 @@ angular.module('devMtIn')
 		$scope.disableEdit = true;
 	}
 	
+	
+	//calls delete profile from service and clears the scope
 	$scope.deleteProfile = function() {
-		profileSvc.deleteProfile();
-		$scope.myProfile ={};
+		profileSvc.deleteProfile().then(function(deletedProfile) {
+			localStorage.removeItem('profileId');
+			$scope.myProfile = {};
+		})
+		.catch(function(err) {
+			console.log(err);
+		})
 	}
 	
 	profileSvc.serviceTest();
