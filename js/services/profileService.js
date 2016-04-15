@@ -13,6 +13,22 @@ angular.module('devMtIn')
 		localStorage.setItem('profile', JSON.stringify(profile));
 		console.log(localStorage.profile);
 
+	};
+	
+	this.getProfile = function() {
+		if(localStorage.getItem('profile')) {
+			return JSON.parse(localStorage.getItem('profile'));
+		} return {
+			friends: [{name: 'Ryan'}, {name: 'Bryan'}, {name: 'Sarah'}, {name: 'Zac'}, {name: 'Erin'}]
+		}
+	};
+	
+	this.deleteProfile = function() {
+		if(localStorage.getItem('profile')) {
+			localStorage.removeItem('profile');
+		} else {
+			console.log('No profile to delete');
+		}
 	}
 	
 	

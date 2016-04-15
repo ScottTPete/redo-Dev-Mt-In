@@ -3,10 +3,7 @@ angular.module('devMtIn')
 		
 	
 	//ng-model="myProfile" is data binding from controller to view
-	$scope.myProfile = {
-		name: '', 
-	    friends: [{name: 'Ryan'}, {name: 'Bryan'}, {name: 'Sarah'}, {name: 'Zac'}, {name: 'Erin'}]
-	}
+	$scope.myProfile = profileSvc.getProfile();
 	
 	$scope.sortOptions = [
 		{
@@ -38,6 +35,11 @@ angular.module('devMtIn')
 	$scope.saveProfile = function(profile) {
 		profileSvc.saveProfile(profile);
 		$scope.disableEdit = true;
+	}
+	
+	$scope.deleteProfile = function() {
+		profileSvc.deleteProfile();
+		$scope.myProfile ={};
 	}
 	
 	profileSvc.serviceTest();
