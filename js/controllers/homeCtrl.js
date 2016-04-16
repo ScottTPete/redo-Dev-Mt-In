@@ -68,6 +68,9 @@ angular.module('devMtIn')
 	//calls delete profile from service and clears the scope
 	$scope.deleteProfile = function() {
 		profileSvc.deleteProfile().then(function(deletedProfile) {
+			
+			$scope.custom = true;
+			
 			localStorage.removeItem('profileId');
 			$scope.myProfile = {};
 		})
