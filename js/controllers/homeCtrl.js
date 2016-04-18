@@ -2,6 +2,8 @@ angular.module('devMtIn')
 	.controller('homeCtrl', function($scope, profileSvc, friendSvc) {
 		
 	
+	$scope.sortReverse = false;
+	
 	//sets sort options for friends list, used by ng-options
 	$scope.sortOptions = [
 		{
